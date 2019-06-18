@@ -5,11 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
+
+// Realm requirements
 import io.realm.Realm
 import io.realm.Sort
+
+// Our model files to define our scheme
 import com.karldenby.realmexample2.model.Person
 import com.karldenby.realmexample2.model.Cat
 import com.karldenby.realmexample2.model.Dog
+
+// Kotlin specifics for Realm and for Asynchronous threading
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import org.jetbrains.anko.doAsync
@@ -21,6 +27,18 @@ class KotlinExampleActivity : Activity() {
     companion object {
         const val TAG: String = "KotlinExampleActivity"
     }
+
+
+    // Kotlin - lateinit
+
+    // Normally, properties declared as having a non-null type must be initialized in the constructor.
+    // However, fairly often this is not convenient. For example, properties can be initialized through dependency
+    // injection, or in the setup method of a unit test.
+
+    // In this case, you cannot supply a non-null initializer in the constructor, but you still want to avoid
+    // null checks when referencing the property inside the body of a class.
+
+    // To handle this case, you can mark the property with the lateinit modifier
 
     private lateinit var rootLayout: LinearLayout
     private lateinit var realm: Realm
@@ -51,7 +69,7 @@ class KotlinExampleActivity : Activity() {
         basicLinkQuery(realm)
 
         // More complex operations can be executed on another thread, for example using
-        // Anko's doAsync extension method.
+        // Anko doAsync extension method.
         doAsync {
             var info = ""
 
